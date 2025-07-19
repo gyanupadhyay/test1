@@ -3,11 +3,10 @@ import 'package:test1/presentation/screens/home_screen.dart';
 import 'package:test1/router/router_constants.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: RouterConstants.home,
+  initialLocation: AppRouteNames.home,
   routes: [
     GoRoute(
-      path: RouterConstants.home,
-      name: 'home',
+      path: AppRouteNames.home,
       builder: (context, state) => const MyHomePage(title: 'test',),
     ),
     // GoRoute(

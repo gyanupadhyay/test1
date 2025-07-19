@@ -1,4 +1,5 @@
 // Base URLs, endpoints
-class RouterConstants {
+class AppRouteNames {
   static const home = '/home';
+  // Add more as needed
 }

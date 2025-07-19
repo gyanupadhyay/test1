@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:test1/locator.dart';
 import 'package:test1/router/app_router.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  setupLocator(); // Register dependencies
   runApp(const MyApp());
 }
 
@@ -14,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter,
-      title: 'InterView',
+      title: 'Interview',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
