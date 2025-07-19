@@ -19,6 +19,7 @@ This structure is designed to be:
 - **GoRouter** – Declarative routing
 - **Dio / HTTP / Hive** – For network requests or local data
 - **Equatable** – For comparing Bloc states (optional but recommended)
+- **GetIt** – Dependency injection
 
 ---
 
