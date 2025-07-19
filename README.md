@@ -1,16 +1,43 @@
-# test1
 
-A new Flutter project.
+---
 
-## Getting Started
+## ✅ Why This Architecture?
 
-This project is a starting point for a Flutter application.
+This structure is designed to be:
 
-A few resources to get you started if this is your first Flutter project:
+- **Easy to maintain** and scale for medium-sized apps
+- **Beginner-friendly** with clear responsibilities per layer
+- **Testable**, with logic separated from UI
+- Flexible enough to integrate third-party libraries, unit testing, and API handling
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🧩 Key Technologies
+
+- **Flutter** – Cross-platform UI toolkit
+- **Bloc** – State management
+- **GoRouter** – Declarative routing
+- **Dio / HTTP / Hive** – For network requests or local data
+- **Equatable** – For comparing Bloc states (optional but recommended)
+
+---
+
+## 📁 Folder Details
+
+| Folder        | Description |
+|---------------|-------------|
+| `bloc/`       | Manages state using Bloc (Events, States, Blocs) |
+| `constants/`  | Global constants like strings, URLs, keys |
+| `models/`     | Data models with `fromJson()` / `toJson()` if needed |
+| `services/`   | Handles API calls, database interactions |
+| `router/`     | All routes are defined here using GoRouter |
+| `ui/`         | UI components and screens |
+| `main.dart`   | Initializes dependencies and starts the app |
+
+---
+
+## 🚀 Getting Started
+
+```bash
+flutter pub get
+flutter run
