@@ -3,6 +3,7 @@ import 'package:test1/presentation/screens/home_screen.dart';
 import 'package:test1/router/router_constants.dart';
 
 final GoRouter appRouter = GoRouter(
+  initialLocation: RouterConstants.home,
   routes: [
     GoRoute(
       path: RouterConstants.home,
