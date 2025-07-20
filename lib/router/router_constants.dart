@@ -1,5 +1,5 @@
 // Base URLs, endpoints
 class AppRouteNames {
-  static const home = '/home';
-  // Add more as needed
+  static const String home = '/home';
+  static const String postDetail = '/postDetail';
 }
