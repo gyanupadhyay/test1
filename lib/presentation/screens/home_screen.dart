@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:test1/bloc/cubit/post_bloc.dart';
 import 'package:test1/bloc/cubit/post_events.dart';
 import 'package:test1/bloc/cubit/post_state.dart';
 import 'package:test1/models/post_model.dart';
+import 'package:test1/router/router_constants.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -24,11 +26,21 @@ class HomeScreen extends StatelessWidget {
                 return ListTile(
                   title: Text(post.title),
                   subtitle: Text(post.body),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: () {
-                      context.read<PostBloc>().add(DeletePost(post.id!));
-                    },
+                  trailing: Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.edit),
+                        onPressed: () {
+                          context.push(AppRouteNames.edit, extra: post);
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          context.read<PostBloc>().add(DeletePost(post.id!));
+                        },
+                      ),
+                    ],
                   ),
                 );
               },
