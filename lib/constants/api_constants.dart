@@ -1,5 +1,8 @@
 // Base URLs, endpoints
 class ApiConstants {
-  static const baseUrl = 'https://jsonplaceholder.typicode.com';
-  static const todosEndpoint = '/todos';
+  static const String baseUrl = 'https://jsonplaceholder.typicode.com';
+  static const String todosEndpoint = '$baseUrl/todos';
+  static const String postEndpoint = '$baseUrl/posts';
+
+
 }

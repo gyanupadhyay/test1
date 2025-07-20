@@ -7,8 +7,9 @@ final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
       path: AppRouteNames.home,
-      builder: (context, state) => const MyHomePage(title: 'test',),
+      builder: (context, state) => const MyHomePage(),
     ),
+
     // GoRoute(
     //   path: '/todo/:id',
     //   name: 'todoDetail',
