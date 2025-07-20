@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:test1/bloc/cubit/post_cubit.dart';
 import 'package:test1/bloc/cubit/post_state.dart';
+import 'package:test1/router/router_constants.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -49,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
         final post = posts[index];
         return ListTile(
+          onTap: () => context.push(AppRouteNames.postDetail, extra: post),
           leading: Text(post.userId.toString()),
           title: Text(post.title),
           subtitle: Text(post.body),
