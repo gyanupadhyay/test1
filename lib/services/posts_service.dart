@@ -25,4 +25,30 @@ class PostsService {
     }
     return postModelList;
   }
+
+  Future<List<PostModel>> fetchPostsPagination({
+    required int page,
+    required int limit,
+  }) async {
+    final List<PostModel> postModelList = [];
+
+    try {
+      final response = await http.get(
+        Uri.parse('${ApiConstants.postEndpoint}?_page=$page&_limit=$limit'),
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+
+        for (var item in data) {
+          postModelList.add(PostModel.fromJson(item));
+        }
+      } else {
+        throw ('Failed to load posts: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw ('$e');
+    }
+    return postModelList;
+  }
 }

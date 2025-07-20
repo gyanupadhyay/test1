@@ -1,28 +1,23 @@
-import 'package:equatable/equatable.dart';
 import 'package:test1/models/post_model.dart';
 
-sealed class PostState extends Equatable {
-  const PostState();
+abstract class PostState {}
 
-  @override
-  List<Object> get props => [];
+class PostInitial extends PostState {}
+
+class PostLoading extends PostState {} // First load only
+
+class PostLoaded extends PostState {
+  final List<PostModel> posts;
+  final bool hasMore;
+
+  PostLoaded(this.posts, {this.hasMore = true});
 }
 
-final class PostInitial extends PostState {}
-
-final class PostLoading extends PostState {}
-
-final class PostSuccess extends PostState {
-  final List<PostModel> postModelList;
-  const PostSuccess(this.postModelList);
-
-  @override
-  List<Object> get props => [postModelList];
+class PostPaginating extends PostLoaded {
+  PostPaginating(super.posts, {super.hasMore});
 }
 
-final class PostError extends PostState {
-  final String error;
-  const PostError(this.error);
-  @override
-  List<Object> get props => [error];
+class PostError extends PostState {
+  final String message;
+  PostError(this.message);
 }
