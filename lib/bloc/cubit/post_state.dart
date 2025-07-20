@@ -1,20 +1,20 @@
+
 import 'package:test1/models/post_model.dart';
 
 abstract class PostState {}
 
 class PostInitial extends PostState {}
 
-class PostLoading extends PostState {} // First load only
+class PostLoading extends PostState {}
 
 class PostLoaded extends PostState {
-  final List<PostModel> posts;
-  final bool hasMore;
-
-  PostLoaded(this.posts, {this.hasMore = true});
+  final List<Post> posts;
+  PostLoaded(this.posts);
 }
 
-class PostPaginating extends PostLoaded {
-  PostPaginating(super.posts, {super.hasMore});
+class PostSuccess extends PostState {
+  final String message;
+  PostSuccess(this.message);
 }
 
 class PostError extends PostState {
