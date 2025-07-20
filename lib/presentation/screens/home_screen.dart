@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:test1/bloc/cubit/post_cubit.dart';
 import 'package:test1/bloc/cubit/post_state.dart';
-import 'package:test1/router/router_constants.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -18,8 +16,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-
-    // Add scroll listener for pagination
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
           _scrollController.position.maxScrollExtent - 200) {
@@ -35,27 +31,34 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildList(List posts, bool isPaginating) {
+    if (posts.isEmpty) {
+      return const Center(child: Text("No posts found."));
+    }
+
     return ListView.separated(
       controller: _scrollController,
       itemCount: posts.length + (isPaginating ? 1 : 0),
-      separatorBuilder: (_, __) => Divider(),
+      separatorBuilder: (_, __) => const Divider(),
       itemBuilder: (context, index) {
         if (index == posts.length && isPaginating) {
           return const Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16),
             child: Center(child: CircularProgressIndicator()),
           );
         }
 
         final post = posts[index];
         return ListTile(
-          onTap: () => context.push(AppRouteNames.postDetail, extra: post),
           leading: Text(post.userId.toString()),
           title: Text(post.title),
           subtitle: Text(post.body),
         );
       },
     );
+  }
+
+  Future<void> _onRefresh() async {
+    await context.read<PostCubit>().fetchInitialPosts();
   }
 
   @override
@@ -72,15 +75,37 @@ class _MyHomePageState extends State<MyHomePage> {
           builder: (context, state) {
             if (state is PostLoading) {
               return const Center(child: CircularProgressIndicator());
-            } else if (state is PostLoaded || state is PostPaginating) {
+            }
+
+            if (state is PostLoaded || state is PostPaginating) {
               final posts = (state as PostLoaded).posts;
               final isPaginating = state is PostPaginating;
-              return _buildList(posts, isPaginating);
-            } else if (state is PostError) {
-              return Center(child: Text(state.message));
-            } else {
-              return const Center(child: Text("Unexpected state."));
+
+              return RefreshIndicator(
+                onRefresh: _onRefresh,
+                child: _buildList(posts, isPaginating),
+              );
             }
+
+            if (state is PostError) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(state.message),
+                    const SizedBox(height: 12),
+                    ElevatedButton(
+                      onPressed: () {
+                        context.read<PostCubit>().fetchInitialPosts();
+                      },
+                      child: const Text("Retry"),
+                    ),
+                  ],
+                ),
+              );
+            }
+
+            return const SizedBox.shrink();
           },
         ),
       ),
