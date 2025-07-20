@@ -67,6 +67,7 @@ class _AddEditPostScreenState extends State<AddEditPostScreen> {
               ),
               const SizedBox(height: 16),
               TextFormField(
+                keyboardType: TextInputType.text,
                 controller: _bodyController,
                 decoration: const InputDecoration(labelText: 'Body'),
                 validator: (value) =>
