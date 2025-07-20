@@ -4,7 +4,6 @@ import 'package:test1/bloc/cubit/post_bloc.dart';
 import 'package:test1/bloc/cubit/post_events.dart';
 import 'package:test1/models/post_model.dart';
 
-
 class AddEditPostScreen extends StatefulWidget {
   final Post? post; // If null => Add, else => Edit
 
@@ -60,6 +59,7 @@ class _AddEditPostScreenState extends State<AddEditPostScreen> {
           child: Column(
             children: [
               TextFormField(
+                keyboardType: TextInputType.text,
                 controller: _titleController,
                 decoration: const InputDecoration(labelText: 'Title'),
                 validator: (value) =>

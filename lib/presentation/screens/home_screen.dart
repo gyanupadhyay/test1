@@ -26,21 +26,24 @@ class HomeScreen extends StatelessWidget {
                 return ListTile(
                   title: Text(post.title),
                   subtitle: Text(post.body),
-                  trailing: Row(
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.edit),
-                        onPressed: () {
-                          context.push(AppRouteNames.edit, extra: post);
-                        },
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.delete),
-                        onPressed: () {
-                          context.read<PostBloc>().add(DeletePost(post.id!));
-                        },
-                      ),
-                    ],
+                  trailing: SizedBox(
+                    width: 100,
+                    child: Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.edit),
+                          onPressed: () {
+                            context.push(AppRouteNames.edit, extra: post);
+                          },
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () {
+                            context.read<PostBloc>().add(DeletePost(post.id!));
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
