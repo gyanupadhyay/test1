@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:test1/bloc/cubit/post_bloc.dart';
 import 'package:test1/bloc/cubit/post_events.dart';
 import 'package:test1/bloc/cubit/post_state.dart';
-import 'package:test1/models/post_model.dart';
 import 'package:test1/router/router_constants.dart';
 
 class HomeScreen extends StatelessWidget {
