@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:test1/bloc/cubit/post_cubit.dart';
+import 'package:test1/bloc/cubit/post_bloc.dart';
+import 'package:test1/bloc/cubit/post_events.dart';
 import 'package:test1/locator.dart';
 import 'package:test1/router/app_router.dart';
 import 'package:test1/services/posts_service.dart';
@@ -15,7 +16,7 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  final _postsService = sl<PostsService>();
+  final _postsService = sl<PostService>();
 
   // This widget is the root of your application.
   @override
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => PostCubit(_postsService)..fetchInitialPosts(),
+          create: (context) => PostBloc(_postsService)..add(FetchPosts()),
         ),
       ],
       child: ScreenUtilInit(

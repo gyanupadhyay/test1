@@ -4,7 +4,7 @@ import 'package:test1/services/posts_service.dart';
 final sl = GetIt.instance;
 
 void setupLocator() {
-  sl.registerLazySingleton<PostsService>(() => PostsService());
+  sl.registerLazySingleton<PostService>(() => PostService());
   // sl.registerFactory<TodoBloc>(() => TodoBloc(sl<TodoService>()));
 }
 
