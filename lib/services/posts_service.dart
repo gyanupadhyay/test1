@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:test1/constants/api_constants.dart';
 import 'package:test1/models/post_model.dart';
 
 class PostService {
-  final String baseUrl = 'https://jsonplaceholder.typicode.com/posts';
+  final String baseUrl = ApiConstants.baseUrl;
 
   Future<List<Post>> fetchPosts() async {
     final response = await http.get(Uri.parse(baseUrl));
