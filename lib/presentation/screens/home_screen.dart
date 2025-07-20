@@ -57,10 +57,10 @@ class HomeScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Call create post for now (can be a separate screen)
-          context.read<PostBloc>().add(
-            CreatePost(Post(title: "New", body: "Post body", userId: 1)),
-          );
+          context.push(AppRouteNames.add);
+          // context.read<PostBloc>().add(
+          //   CreatePost(Post(title: "New", body: "Post body", userId: 1)),
+          // );
         },
         child: const Icon(Icons.add),
       ),
