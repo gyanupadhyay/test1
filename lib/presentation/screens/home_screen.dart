@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:test1/bloc/cubit/weather_cubit.dart';
+import 'package:test1/bloc/cubit/weather_state.dart';
+import 'package:test1/router/router_constants.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -9,12 +14,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  TextEditingController textEditingController = TextEditingController();
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  @override
+  void initState() {
+    super.initState();
+    context.read<WeatherCubit>().getWeatherByCity('Delhi');
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    textEditingController.dispose();
   }
 
   @override
@@ -25,22 +36,51 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+        child: BlocBuilder<WeatherCubit, WeatherCubitState>(
+          builder: (context, state) {
+            if (state is WeatherCubitLoading) {
+              return CircularProgressIndicator();
+            }
+
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    // keyboardType: TextInputType.text,
+                    controller: textEditingController,
+                    decoration: InputDecoration(
+                      label: Text('Please Enter the City'),
+                    ),
+                  ),
+                ),
+
+                ElevatedButton(
+                  onPressed: () {
+                    context.read<WeatherCubit>().getWeatherByCity(
+                      textEditingController.text,
+                    );
+                  },
+                  child: Text('Get City Weather'),
+                ),
+
+                if (state is WeatherCubitLoaded)
+                  ElevatedButton(
+                    onPressed: () {
+                      context.push(
+                        AppRouteNames.detailScreen,
+                        extra: state.weatherModel,
+                      );
+                    },
+                    child: Text('Open Detail Weather Screen'),
+                  ),
+              ],
+            );
+          },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
