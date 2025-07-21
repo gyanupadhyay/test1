@@ -10,7 +10,18 @@ class WeatherDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Weather Detail Screen')),
-      body: Column(children: [Text(weatherModel.name)]),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          spacing: 10,
+          children: [
+            Text(weatherModel.name),
+            Text(weatherModel.clouds.all.toString()),
+            Text(weatherModel.coord.lat.toString()),
+            Text(weatherModel.coord.lon.toString()),
+          ],
+        ),
+      ),
     );
   }
 }

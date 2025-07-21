@@ -19,7 +19,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    context.read<WeatherCubit>().getWeatherByCity('Delhi');
   }
 
   @override
@@ -48,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
-                    // keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.text,
                     controller: textEditingController,
                     decoration: InputDecoration(
                       label: Text('Please Enter the City'),
@@ -58,9 +57,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
                 ElevatedButton(
                   onPressed: () {
-                    context.read<WeatherCubit>().getWeatherByCity(
-                      textEditingController.text,
-                    );
+                    final city = textEditingController.text.trim();
+                    if (city.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Please enter a city name"),
+                        ),
+                      );
+                    }
+                    if (city.isNotEmpty) {
+                      context.read<WeatherCubit>().getWeatherByCity(
+                        textEditingController.text,
+                      );
+                    }
                   },
                   child: Text('Get City Weather'),
                 ),
