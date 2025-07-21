@@ -15,13 +15,12 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  final WeatherService weatherService = WeatherService();
-
+  final _weatherService = sl<WeatherService>();
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WeatherCubit(weatherService),
+      create: (context) => WeatherCubit(_weatherService),
       child: ScreenUtilInit(
         designSize: const Size(432, 927),
         minTextAdapt: true,
