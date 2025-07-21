@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
-import 'package:test1/models/post_model.dart';
+import 'package:test1/models/weather_model.dart';
 import 'package:test1/presentation/screens/home_screen.dart';
-import 'package:test1/presentation/screens/post_detail_screen.dart';
+import 'package:test1/presentation/screens/weather_detail_screen.dart';
 import 'package:test1/router/router_constants.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -9,14 +9,12 @@ final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
       path: AppRouteNames.home,
-      builder: (context, state) => const MyHomePage(),
+      builder: (context, state) => const MyHomePage(title: 'Test'),
     ),
     GoRoute(
-      path: AppRouteNames.postDetail,
-      builder: (context, state) {
-        final PostModel postModel = state.extra as PostModel;
-        return PostDetailScreen(postModel: postModel);
-      },
+      path: AppRouteNames.detailScreen,
+      builder: (context, state) =>
+          WeatherDetailScreen(weatherModel: state.extra as WeatherModel),
     ),
   ],
 );
