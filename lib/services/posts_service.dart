@@ -9,7 +9,10 @@ class PostsService {
     final List<PostModel> postModelList = [];
 
     try {
-      final response = await http.get(Uri.parse(ApiConstants.postEndpoint));
+      final response = await http.get(
+        Uri.parse(ApiConstants.postEndpoint),
+        headers: {"User-Agent": "Mozilla/5.0", "Accept": "application/json"},
+      );
 
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
@@ -35,6 +38,7 @@ class PostsService {
     try {
       final response = await http.get(
         Uri.parse('${ApiConstants.postEndpoint}?_page=$page&_limit=$limit'),
+        headers: {"User-Agent": "Mozilla/5.0", "Accept": "application/json"},
       );
 
       if (response.statusCode == 200) {
